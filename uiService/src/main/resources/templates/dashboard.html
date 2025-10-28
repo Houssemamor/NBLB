@@ -55,11 +55,13 @@
 </head>
 <body>
     <div class="container">
-        <h2>(Local side)</h2>
+        <h2>(Service Dashboard side)</h2>
 
         <div th:if="${successMessage}" class="success-message" th:text="${successMessage}"></div>
 
-        <p>You have successfully logged in to the authentication service (Local side)</p>
+        <p>You have successfully logged in to the authentication service (Service Dashboard side).</p>
+
+        <p>This is a placeholder dashboard. You can customize this page to show user-specific information or redirect to your main application.</p>
 
         <a href="/auth/login" class="logout-btn">Logout</a>
     </div>
