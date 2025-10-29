@@ -31,10 +31,6 @@ public class AuthController {
         return "register";
     }
 
-    @GetMapping("/dashboard")
-    public String dashboardPage() {
-        return "dashboard";
-    }
 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute User user, Model model, RedirectAttributes redirectAttributes) {
@@ -68,7 +64,7 @@ public class AuthController {
                     String token = responseBody.substring(responseBody.lastIndexOf(" ") + 1);
                     redirectAttributes.addFlashAttribute("successMessage", "Login successful!");
                     // Redirect users via the gateway so the client stays on the gateway host
-                    return "redirect:" + gatewayUrl + "/uiService/dashboard?token=" + token;
+                    return "redirect:" + gatewayUrl + "/order-service/dashboard?token=" + token;
                 } else {
                     model.addAttribute("errorMessage", "Failed to retrieve token");
                     return "login";

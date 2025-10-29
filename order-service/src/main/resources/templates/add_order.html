@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Ajouter une commande</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            background: white;
+            padding: 20px;
+            width: 400px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ccc;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            margin-top: 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 15px;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="nav" style="margin-bottom:20px; display:flex; gap:8px;">
+    <a th:href="@{/order-service/dashboard}" class="btn btn-primary">Dashboard</a>
+    <a th:href="@{/order-service/allorder}" class="btn btn-secondary">List Orders</a>
+    <a href="/auth/login" class="btn btn-danger">Logout</a>
+</div>
+
+<h1>Ajouter une commande</h1>
+
+<form th:action="@{/order-service/saveorder}" th:object="${orderform}" method="post">
+
+    <label>Référence :</label>
+    <input type="text" th:field="*{ref}" placeholder="Référence de commande"/>
+
+    <label>Prix total :</label>
+    <input type="number" step="0.01" th:field="*{price}" placeholder="Prix total"/>
+
+    <label>Date :</label>
+    <input type="date" th:field="*{date}" />
+
+    <button type="submit">Enregistrer</button>
+</form>
+
+<div style="margin-top:12px;">
+    <a th:href="@{/order-service/allorder}" class="btn" style="background:#007bff;color:#fff;padding:8px 12px;border-radius:6px;text-decoration:none;">Voir toutes les commandes</a>
+</div>
+
+</body>
+</html>
