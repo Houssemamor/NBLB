@@ -1,4 +1,4 @@
-# NBLB (No Bite Left behind)
+# NBLB (No Bite Left Behind)
 
 Multi-module Java (Spring Boot) microservices project.
 
