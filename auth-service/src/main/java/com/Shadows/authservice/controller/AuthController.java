@@ -3,6 +3,7 @@ package com.Shadows.authservice.controller;
 import com.Shadows.authservice.model.User;
 import com.Shadows.authservice.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,9 @@ public class AuthController {
 
     @Autowired
     private AuthService authService;
+
+    @Value("${gateway.url:http://localhost:8222}")
+    private String gatewayUrl;
 
     // Web page endpoints
     @GetMapping("/login")
@@ -63,7 +67,8 @@ public class AuthController {
                 if (responseBody != null && responseBody.contains("token: ")) {
                     String token = responseBody.substring(responseBody.lastIndexOf(" ") + 1);
                     redirectAttributes.addFlashAttribute("successMessage", "Login successful!");
-                    return "redirect:/api/uiService?token=" + token;
+                    // Redirect users via the gateway so the client stays on the gateway host
+                    return "redirect:" + gatewayUrl + "/uiService/dashboard?token=" + token;
                 } else {
                     model.addAttribute("errorMessage", "Failed to retrieve token");
                     return "login";

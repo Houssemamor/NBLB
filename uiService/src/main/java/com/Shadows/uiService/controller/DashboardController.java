@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class DashboardController {
 
-    @GetMapping("/api/uiService")
+    @GetMapping("/uiService/dashboard")
     public String dashboard(@RequestParam(value = "token", required = false) String token,
                            HttpSession session, Model model) {
         if (token != null) {
