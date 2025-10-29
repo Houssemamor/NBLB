@@ -51,15 +51,23 @@ public class AuthController {
 
     @PostMapping("/login")
     public String loginUser(@RequestParam String username, @RequestParam String password,
-                           Model model, RedirectAttributes redirectAttributes) {
+            Model model, RedirectAttributes redirectAttributes) {
         try {
             User user = new User();
             user.setUsername(username);
             user.setPassword(password);
             ResponseEntity<?> response = authService.loginUser(user);
             if (response.getStatusCode().is2xxSuccessful()) {
-                redirectAttributes.addFlashAttribute("successMessage", "Login successful!");
-                return "redirect:/auth/dashboard"; // You can change this to your main app page
+                // Extract token from response
+                String responseBody = (String) response.getBody();
+                if (responseBody != null && responseBody.contains("token: ")) {
+                    String token = responseBody.substring(responseBody.lastIndexOf(" ") + 1);
+                    redirectAttributes.addFlashAttribute("successMessage", "Login successful!");
+                    return "redirect:/api/uiService?token=" + token;
+                } else {
+                    model.addAttribute("errorMessage", "Failed to retrieve token");
+                    return "login";
+                }
             } else {
                 model.addAttribute("errorMessage", String.valueOf(response.getBody()));
                 return "login";
