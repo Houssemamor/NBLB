@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 
 @Controller
-@RequestMapping("/payments")
 public class PaymentController {
     private final PaymentRepository repo;
 
@@ -18,14 +17,14 @@ public class PaymentController {
     }
 
     // Afficher la page de paiement
-    @GetMapping("/form")
+    @RequestMapping("/payment/form")
     public String showPaymentForm(Model model) {
         model.addAttribute("payment", new Payment());
         return "payment-form"; // Nom du fichier HTML (payment-form.html)
     }
 
     // Traiter le paiement
-    @PostMapping("/process")
+    @RequestMapping("/payment/process")
     public String processPayment(@ModelAttribute Payment payment, Model model) {
         payment.setStatus("COMPLETED");
         payment.setDate(new Date());
