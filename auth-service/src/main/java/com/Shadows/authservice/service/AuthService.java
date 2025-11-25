@@ -1,5 +1,6 @@
 package com.Shadows.authservice.service;
 
+import com.Shadows.authservice.model.Role;
 import com.Shadows.authservice.model.User;
 import com.Shadows.authservice.repository.UserRepository;
 import com.Shadows.authservice.util.JwtUtil;
@@ -8,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -34,6 +37,11 @@ public class AuthService {
                 return ResponseEntity.badRequest().body("Email already exists");
             }
 
+            // Set default role if not present
+            if (user.getRole() == null) {
+                user.setRole(Role.CLIENT);
+            }
+
             // Encode password
             user.setPassword(passwordEncoder.encode(user.getPassword()));
 
@@ -51,8 +59,11 @@ public class AuthService {
             Optional<User> existingUser = userRepository.findByUsername(user.getUsername());
 
             if (existingUser.isPresent() && passwordEncoder.matches(user.getPassword(), existingUser.get().getPassword())) {
-                String token = jwtUtil.generateToken(user.getUsername());
-                return ResponseEntity.ok("Login successful, token: " + token);
+                String token = jwtUtil.generateToken(user.getUsername(), existingUser.get().getRole().name());
+                Map<String, String> response = new HashMap<>();
+                response.put("token", token);
+                response.put("role", existingUser.get().getRole().name());
+                return ResponseEntity.ok(response);
             } else {
                 return ResponseEntity.badRequest().body("Invalid username or password");
             }
@@ -62,6 +73,10 @@ public class AuthService {
     }
 
     public User register(User user) {
+        // Set default role if not present
+        if (user.getRole() == null) {
+            user.setRole(Role.CLIENT);
+        }
         // Encode password
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
@@ -70,7 +85,7 @@ public class AuthService {
     public String login(String username, String password) {
         Optional<User> user = userRepository.findByUsername(username);
         if (user.isPresent() && passwordEncoder.matches(password, user.get().getPassword())) {
-            return jwtUtil.generateToken(username);
+            return jwtUtil.generateToken(username, user.get().getRole().name());
         }
         return null;
     }

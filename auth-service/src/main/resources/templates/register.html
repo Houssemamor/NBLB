@@ -36,7 +36,7 @@
             margin-bottom: 0.5rem;
             color: #555;
         }
-        input[type="text"], input[type="email"], input[type="password"] {
+        input[type="text"], input[type="email"], input[type="password"], select {
             width: 100%;
             padding: 0.75rem;
             border: 1px solid #ddd;
@@ -108,6 +108,14 @@
             <div class="form-group">
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required>
+            </div>
+
+            <div class="form-group">
+                <label for="role">Role:</label>
+                <select id="role" name="role" required>
+                    <option value="CLIENT">Client</option>
+                    <option value="SHOP">Shop</option>
+                </select>
             </div>
 
             <button type="submit">Register</button>

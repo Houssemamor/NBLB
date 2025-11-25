@@ -2,6 +2,7 @@ package com.Shadows.authservice.controller;
 
 import com.Shadows.authservice.model.User;
 import com.Shadows.authservice.service.AuthService;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -58,13 +59,24 @@ public class AuthController {
             user.setPassword(password);
             ResponseEntity<?> response = authService.loginUser(user);
             if (response.getStatusCode().is2xxSuccessful()) {
-                // Extract token from response
-                String responseBody = (String) response.getBody();
-                if (responseBody != null && responseBody.contains("token: ")) {
-                    String token = responseBody.substring(responseBody.lastIndexOf(" ") + 1);
+                // Extract token and role from response
+                Map<String, String> responseBody = (Map<String, String>) response.getBody();
+                if (responseBody != null && responseBody.containsKey("token")) {
+                    String token = responseBody.get("token");
+                    String role = responseBody.get("role");
                     redirectAttributes.addFlashAttribute("successMessage", "Login successful!");
-                    // Redirect users via the gateway so the client stays on the gateway host
-                    return "redirect:" + gatewayUrl + "/order-service/dashboard?token=" + token;
+                    
+                    // Redirect based on role
+                    String redirectPath = "/order-service/dashboard"; // Default
+                    if ("ADMIN".equals(role)) {
+                        redirectPath = "/order-service/dashboard/admin";
+                    } else if ("SHOP".equals(role)) {
+                        redirectPath = "/order-service/dashboard/shop";
+                    } else if ("CLIENT".equals(role)) {
+                        redirectPath = "/order-service/dashboard/client";
+                    }
+                    
+                    return "redirect:" + gatewayUrl + redirectPath + "?token=" + token;
                 } else {
                     model.addAttribute("errorMessage", "Failed to retrieve token");
                     return "login";

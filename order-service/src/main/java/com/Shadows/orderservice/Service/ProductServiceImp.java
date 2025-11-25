@@ -39,4 +39,9 @@ public class ProductServiceImp implements ProductService{
     public void deleteProduct(Long id) {
         productRepository.deleteById(id);
     }
+
+    @Override
+    public List<Product> getProductsByAddedBy(String addedBy) {
+        return productRepository.findByAddedBy(addedBy);
+    }
 }

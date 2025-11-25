@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Order Service</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+        }
+        .nav {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        .btn {
+            padding: 0.5rem 0.9rem;
+            border-radius: 6px;
+            text-decoration: none;
+            color: #fff;
+            font-weight: 600;
+        }
+        .btn-primary { background: #007bff; }
+        .btn-secondary { background: #6c757d; }
+        .btn-danger { background: #dc3545; }
+        h2 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+        .success-message {
+            color: #155724;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <a th:href="@{/order-service/dashboard/admin}" class="btn btn-primary">Admin Dashboard</a>
+            <a th:href="@{/order-service/allorder}" class="btn btn-secondary">Manage All Orders</a>
+            <a th:href="@{/order-service/addProduct}" class="btn btn-secondary">Manage Products</a>
+            <a th:href="${gatewayUrl} + '/auth/login'" class="btn btn-danger">Logout</a>
+        </div>
+
+        <h2>Admin Dashboard</h2>
+
+        <div th:if="${successMessage}" class="success-message" th:text="${successMessage}"></div>
+
+        <p>Welcome, Admin! You have full access to manage orders and products.</p>
+    </div>
+</body>
+</html>
