@@ -1,7 +1,7 @@
-package com.example.demo.Service;
+package com.Shadows.orderservice.Service;
 
-import com.example.demo.model.Product;
-import com.example.demo.repository.ProductRepository;
+import com.Shadows.orderservice.model.Product;
+import com.Shadows.orderservice.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

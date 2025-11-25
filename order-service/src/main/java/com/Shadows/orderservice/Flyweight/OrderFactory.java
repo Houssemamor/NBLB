@@ -1,7 +1,7 @@
-package com.example.demo.Flyweight;
+package com.Shadows.orderservice.Flyweight;
 
-import com.example.demo.model.Product;
-import com.example.demo.model.Order;
+import com.Shadows.orderservice.model.Product;
+import com.Shadows.orderservice.model.Order;
 
 import java.util.ArrayList;
 import java.util.HashMap;

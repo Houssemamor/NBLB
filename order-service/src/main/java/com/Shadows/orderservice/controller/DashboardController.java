@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.Shadows.orderservice.controller;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;

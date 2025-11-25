@@ -1,9 +1,9 @@
-package com.example.demo.controller;
+package com.Shadows.orderservice.controller;
 
 import org.springframework.ui.Model;
-import com.example.demo.model.Order;
-import com.example.demo.Service.OrderServiceImp;
-import com.example.demo.Service.ProductServiceImp;
+import com.Shadows.orderservice.model.Order;
+import com.Shadows.orderservice.Service.OrderServiceImp;
+//import com.Shadows.orderservice.Service.ProductServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;

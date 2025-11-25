@@ -1,7 +1,7 @@
-package com.example.demo.controller;
+package com.Shadows.orderservice.controller;
 
-import com.example.demo.model.Product;
-import com.example.demo.Service.ProductServiceImp;
+import com.Shadows.orderservice.model.Product;
+import com.Shadows.orderservice.Service.ProductServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

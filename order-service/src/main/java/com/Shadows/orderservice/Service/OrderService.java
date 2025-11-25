@@ -1,6 +1,6 @@
-package com.example.demo.Service;
+package com.Shadows.orderservice.Service;
 
-import com.example.demo.model.Order;
+import com.Shadows.orderservice.model.Order;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,6 +1,6 @@
-package com.example.demo.repository;
+package com.Shadows.orderservice.repository;
 
-import com.example.demo.model.Product;
+import com.Shadows.orderservice.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {

@@ -1,7 +1,7 @@
-package com.example.demo.Service;
+package com.Shadows.orderservice.Service;
 
 
-import com.example.demo.model.Product;
+import com.Shadows.orderservice.model.Product;
 
 import java.util.List;
 import java.util.Optional;

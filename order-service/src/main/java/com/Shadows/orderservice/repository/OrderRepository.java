@@ -1,7 +1,7 @@
-package com.example.demo.repository;
+package com.Shadows.orderservice.repository;
 
 import jakarta.persistence.metamodel.SingularAttribute;
-import com.example.demo.model.Order;
+import com.Shadows.orderservice.model.Order;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.data.jpa.repository.JpaRepository;
 

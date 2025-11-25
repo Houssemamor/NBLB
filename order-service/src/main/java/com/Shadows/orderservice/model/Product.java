@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.Shadows.orderservice.model;
 
 
 import jakarta.persistence.*;
