@@ -45,7 +45,7 @@
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
-                <a th:href="@{/order-service/dashboard}" class="navbar-brand mx-4 mb-3">
+                <a th:href="@{/order-service/frontpage}" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>NBLB</h3>
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
@@ -62,8 +62,8 @@
                     <!-- Dashboard Link Logic -->
                     <a th:href="@{/order-service/dashboard/admin}" class="nav-item nav-link" th:classappend="${userRole == 'ADMIN' ? 'active' : ''}" th:if="${userRole == 'ADMIN'}"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <a th:href="@{/order-service/dashboard/shop}" class="nav-item nav-link" th:classappend="${userRole == 'SHOP' ? 'active' : ''}" th:if="${userRole == 'SHOP'}"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                    <a th:href="@{/order-service/dashboard/client}" class="nav-item nav-link" th:classappend="${userRole == 'CLIENT' ? 'active' : ''}" th:if="${userRole == 'CLIENT'}"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                    <a th:href="@{/order-service/dashboard}" class="nav-item nav-link" th:classappend="${userRole == null || userRole == 'VISITOR' ? 'active' : ''}" th:if="${userRole == null || userRole == 'VISITOR'}"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a th:href="@{/order-service/dashboard/client}" class="nav-item nav-link" th:classappend="${userRole == 'CLIENT' ? 'active' : ''}" th:if="${userRole == 'CLIENT'}"><i class="fa fa-tachometer-alt me-2"></i>Front page</a>
+                    <a th:href="@{/order-service/frontpage}" class="nav-item nav-link" th:classappend="${userRole == null || userRole == 'VISITOR' ? 'active' : ''}" th:if="${userRole == null || userRole == 'VISITOR'}"><i class="fa fa-tachometer-alt me-2"></i>Front page</a>
                     
                     <!-- Client Links (Visible to CLIENT and ADMIN) -->
                     <div th:if="${userRole == 'CLIENT' || userRole == 'ADMIN'}">
@@ -103,9 +103,15 @@
                             <span class="d-none d-lg-inline-flex" th:text="${username != null ? username : 'Guest'}">User</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">My Profile</a>
-                            <a href="#" class="dropdown-item">Settings</a>
-                            <a th:href="${gatewayUrl != null ? gatewayUrl + '/auth/login' : '/auth/login'}" class="dropdown-item">Log Out</a>
+                            <div th:if="${userRole != null && userRole != 'VISITOR'}">
+                                <a href="#" class="dropdown-item">My Profile</a>
+                                <a href="#" class="dropdown-item">Settings</a>
+                                <a th:href="@{/order-service/logout}" class="dropdown-item">Log Out</a>
+                            </div>
+                            <div th:if="${userRole == null || userRole == 'VISITOR'}">
+                                <a th:href="${gatewayUrl != null ? gatewayUrl + '/auth/login' : '/auth/login'}" class="dropdown-item">Log In</a>
+                                <a th:href="${gatewayUrl != null ? gatewayUrl + '/auth/register' : '/auth/register'}" class="dropdown-item">Register</a>
+                            </div>
                         </div>
                     </div>
                 </div>

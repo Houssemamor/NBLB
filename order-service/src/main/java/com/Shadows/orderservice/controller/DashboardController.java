@@ -22,8 +22,8 @@ public class DashboardController {
     @Value("${gateway.url}")
     private String gatewayUrl;
 
-    @GetMapping("/order-service/dashboard")
-    public String dashboard(@RequestParam(value = "token", required = false) String token,
+    @GetMapping("/order-service/frontpage")
+    public String frontpage(@RequestParam(value = "token", required = false) String token,
                            HttpSession session, Model model) {
         model.addAttribute("gatewayUrl", gatewayUrl);
         if (token != null) {
@@ -45,7 +45,7 @@ public class DashboardController {
         // Fetch all products for visitor view
         model.addAttribute("products", productService.getAllProducts());
         
-        return "dashboard";
+        return "frontpage";
     }
 
     @GetMapping("/order-service/dashboard/admin")
@@ -69,7 +69,7 @@ public class DashboardController {
                 return "dashboard_admin";
             }
         }
-        return "redirect:/order-service/dashboard";
+        return "redirect:/order-service/frontpage";
     }
 
     @GetMapping("/order-service/dashboard/shop")
@@ -96,9 +96,9 @@ public class DashboardController {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return "redirect:/order-service/dashboard?error=" + e.getMessage();
+            return "redirect:/order-service/frontpage?error=" + e.getMessage();
         }
-        return "redirect:/order-service/dashboard";
+        return "redirect:/order-service/frontpage";
     }
 
     @GetMapping("/order-service/dashboard/client")
@@ -127,8 +127,14 @@ public class DashboardController {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return "redirect:/order-service/dashboard?error=" + e.getMessage();
+            return "redirect:/order-service/frontpage?error=" + e.getMessage();
         }
-        return "redirect:/order-service/dashboard";
+        return "redirect:/order-service/frontpage";
+    }
+
+    @GetMapping("/order-service/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/order-service/frontpage";
     }
 }

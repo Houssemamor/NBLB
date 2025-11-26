@@ -67,7 +67,7 @@ public class AuthController {
                     redirectAttributes.addFlashAttribute("successMessage", "Login successful!");
                     
                     // Redirect based on role
-                    String redirectPath = "/order-service/dashboard"; // Default
+                    String redirectPath = "/order-service/frontpage"; // Default
                     if ("ADMIN".equals(role)) {
                         redirectPath = "/order-service/dashboard/admin";
                     } else if ("SHOP".equals(role)) {
