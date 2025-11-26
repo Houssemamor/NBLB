@@ -25,10 +25,7 @@
                     <h6 class="text-primary mb-3" th:text="${'$' + product.price}">$0.00</h6>
                     <small class="text-muted mb-3" th:text="${'Sold by: ' + product.addedBy}">Shop Name</small>
                     
-                    <form th:action="@{/order-service/addorder}" method="get" class="mt-auto">
-                        <input type="hidden" name="productId" th:value="${product.id}">
-                        <button type="submit" class="btn btn-primary w-100">Add to Order</button>
-                    </form>
+                    <a th:href="@{/order-service/cart/add/{id}(id=${product.id})}" class="btn btn-primary w-100 mt-auto">Add to Cart</a>
                 </div>
             </div>
             

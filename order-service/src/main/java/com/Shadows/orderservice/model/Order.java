@@ -22,15 +22,20 @@ public class Order {
     private String price;
     private int quantity;
 
-
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
+
+    private String username;
+    private String status = "PENDING";
+
     @ManyToMany
     @JoinTable(
             name = "order_products",
             joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
+    @lombok.ToString.Exclude
+    @lombok.EqualsAndHashCode.Exclude
     private List<Product> products= new ArrayList<>();
 
 

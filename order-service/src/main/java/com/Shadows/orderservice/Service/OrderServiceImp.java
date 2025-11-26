@@ -26,8 +26,8 @@ public class OrderServiceImp implements OrderService{
     }
 
     @Override
-    public Optional<Order> getOrderById(String orderId) {
-        return orderRepository.findById(id);
+    public Optional<Order> getOrderById(Long orderId) {
+        return orderRepository.findById(orderId);
 
     }
 
@@ -40,5 +40,25 @@ public class OrderServiceImp implements OrderService{
     public void deleteOrder(Long id) {
         orderRepository.deleteById(id) ;
 
+    }
+
+    @Override
+    public List<Order> getOrdersByUsername(String username) {
+        return orderRepository.findByUsername(username);
+    }
+
+    @Override
+    public List<Order> getOrdersByProductOwner(String username) {
+        return orderRepository.findOrdersByProductOwner(username);
+    }
+
+    @Override
+    public void updateOrderStatus(Long id, String status) {
+        Optional<Order> order = orderRepository.findById(id);
+        if (order.isPresent()) {
+            Order o = order.get();
+            o.setStatus(status);
+            orderRepository.save(o);
+        }
     }
 }

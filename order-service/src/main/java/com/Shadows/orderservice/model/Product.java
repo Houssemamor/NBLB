@@ -30,6 +30,8 @@ public class Product {
 
 
     @ManyToMany(mappedBy = "products")
+    @lombok.ToString.Exclude
+    @lombok.EqualsAndHashCode.Exclude
     private List< Order> orders;
 
 

@@ -1,9 +1,12 @@
 package com.Shadows.orderservice.Service;
 
+import com.Shadows.orderservice.model.Order;
 import com.Shadows.orderservice.model.Product;
+import com.Shadows.orderservice.repository.OrderRepository;
 import com.Shadows.orderservice.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.List;
@@ -14,6 +17,10 @@ public class ProductServiceImp implements ProductService{
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
+
     @Override
     // Créer un nouveau produit
     public Product createProduct(Product product) {
@@ -35,9 +42,20 @@ public class ProductServiceImp implements ProductService{
         return productRepository.save(product);
     }
     @Override
+    @Transactional
     // Supprimer un produit par ID
     public void deleteProduct(Long id) {
-        productRepository.deleteById(id);
+        Product product = productRepository.findById(id).orElse(null);
+        if (product != null) {
+            List<Order> orders = product.getOrders();
+            if (orders != null) {
+                for (Order order : orders) {
+                    order.getProducts().remove(product);
+                    orderRepository.save(order);
+                }
+            }
+            productRepository.deleteById(id);
+        }
     }
 
     @Override
